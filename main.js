@@ -36,29 +36,99 @@ function goBtnClicked() {
   }
 }
 
+// BASIC DISPLAY FUNCTION
+function display(thisBaby) {
+  return `
+  <div>
+    ${thisBaby.name} (Rank: ${thisBaby.rank}, Gender: ${thisBaby.gender})
+  </div>`;
+}
+
 // Display All Baby Names
 function displayAll() {
-  console.log("Display All");
-  // Confirm data load
-  console.log(babyData);
+  container.innerHTML = "";
+  nameCountSpan.innerHTML = "";
+  let count = 0;
+  let str = "";
+  for (let i = 0; i < babyData.length; i++) {
+    let thisBaby = babyData[i];
+    str += display(thisBaby);
+    count++
+  }
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
 }
 
 // Display Names by Gender
 function searchGender() {
-  console.log("Search By Gender");
+  container.innerHTML = "";
+  nameCountSpan.innerHTML = "";
+  let genderInput = prompt("Please enter a gender (Boy/Girl)");
+  let count = 0;
+  let str = "";
+  for (let i = 0; i < babyData.length; i++) {
+    let thisBaby = babyData[i];
+    if (thisBaby.gender === genderInput) {
+      str += display(thisBaby);
+      count++
+    }
+  }
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
 }
 
 // Display Names within a Range of Ranks
 function searchRank() {
-  console.log("Search By Rank");
+  container.innerHTML = "";
+  nameCountSpan.innerHTML = "";
+  let min = prompt("Please enter a minimum rank: ");
+  let max = prompt("Please enter a maximum rank: ");
+  let count = 0;
+  let str = "";
+  for (let i = 0; i < babyData.length; i++) {
+    let thisBaby = babyData[i];
+    if (thisBaby.rank >= min && thisBaby.rank <= max) {
+      str += display(thisBaby);
+      count++
+    }
+  }
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
 }
 
 // Display Names with Starting Letter
 function searchStartingLetter() {
-  console.log("Search by Starting Letter");
+  container.innerHTML = "";
+  nameCountSpan.innerHTML = "";
+  let letter = prompt("Please enter a starting letter: ").toUpperCase();
+  let count = 0;
+  let str = "";
+  for (let i = 0; i < babyData.length; i++) {
+    let thisBaby = babyData[i];
+    if (thisBaby.name.startsWith(letter)) {
+      str += display(thisBaby);
+      count++
+    }
+  }
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
 }
 
 // Display Names with a Specific Length
 function searchLength() {
-  console.log("Search by Name Length");
+  container.innerHTML = "";
+  nameCountSpan.innerHTML = "";
+  let num = prompt("Please enter a name length: ");
+  let count = 0;
+  let str = "";
+  for (let i = 0; i < babyData.length; i++) {
+    let thisBabyName = babyData[i].name;
+    let strLength = JSON.stringify(thisBabyName.length);
+    if (strLength === num) {
+      str += display(babyData[i]);
+      count++
+    }
+  }
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
 }
