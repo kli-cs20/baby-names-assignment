@@ -36,6 +36,10 @@ function goBtnClicked() {
   }
 }
 
+// GLOBAL VARIABLES
+let count = 0;
+let str = "";
+
 // BASIC DISPLAY FUNCTION
 function display(thisBaby) {
   return `
@@ -44,28 +48,33 @@ function display(thisBaby) {
   </div>`;
 }
 
-// Display All Baby Names
-function displayAll() {
+function basicReset() {
   container.innerHTML = "";
   nameCountSpan.innerHTML = "";
-  let count = 0;
-  let str = "";
+  count = 0;
+  str = "";
+}
+
+function displayData() {
+  container.innerHTML = str;
+  nameCountSpan.innerHTML = count;
+}
+
+// Display All Baby Names
+function displayAll() {
+  basicReset();
   for (let i = 0; i < babyData.length; i++) {
     let thisBaby = babyData[i];
     str += display(thisBaby);
     count++
   }
-  container.innerHTML = str;
-  nameCountSpan.innerHTML = count;
+  displayData()
 }
 
 // Display Names by Gender
 function searchGender() {
-  container.innerHTML = "";
-  nameCountSpan.innerHTML = "";
+  basicReset();
   let genderInput = prompt("Please enter a gender (Boy/Girl)");
-  let count = 0;
-  let str = "";
   for (let i = 0; i < babyData.length; i++) {
     let thisBaby = babyData[i];
     if (thisBaby.gender === genderInput) {
@@ -73,18 +82,14 @@ function searchGender() {
       count++
     }
   }
-  container.innerHTML = str;
-  nameCountSpan.innerHTML = count;
+  displayData()
 }
 
 // Display Names within a Range of Ranks
 function searchRank() {
-  container.innerHTML = "";
-  nameCountSpan.innerHTML = "";
+  basicReset();
   let min = prompt("Please enter a minimum rank: ");
   let max = prompt("Please enter a maximum rank: ");
-  let count = 0;
-  let str = "";
   for (let i = 0; i < babyData.length; i++) {
     let thisBaby = babyData[i];
     if (thisBaby.rank >= min && thisBaby.rank <= max) {
@@ -92,17 +97,13 @@ function searchRank() {
       count++
     }
   }
-  container.innerHTML = str;
-  nameCountSpan.innerHTML = count;
+  displayData()
 }
 
 // Display Names with Starting Letter
 function searchStartingLetter() {
-  container.innerHTML = "";
-  nameCountSpan.innerHTML = "";
+  basicReset();
   let letter = prompt("Please enter a starting letter: ").toUpperCase();
-  let count = 0;
-  let str = "";
   for (let i = 0; i < babyData.length; i++) {
     let thisBaby = babyData[i];
     if (thisBaby.name.startsWith(letter)) {
@@ -110,17 +111,13 @@ function searchStartingLetter() {
       count++
     }
   }
-  container.innerHTML = str;
-  nameCountSpan.innerHTML = count;
+  displayData()
 }
 
 // Display Names with a Specific Length
 function searchLength() {
-  container.innerHTML = "";
-  nameCountSpan.innerHTML = "";
+  basicReset();
   let num = prompt("Please enter a name length: ");
-  let count = 0;
-  let str = "";
   for (let i = 0; i < babyData.length; i++) {
     let thisBabyName = babyData[i].name;
     let strLength = JSON.stringify(thisBabyName.length);
@@ -129,6 +126,5 @@ function searchLength() {
       count++
     }
   }
-  container.innerHTML = str;
-  nameCountSpan.innerHTML = count;
+  displayData()
 }
